@@ -1,4 +1,4 @@
-# Scheduled stopping EC2 instances
+# Scheduled stopping of EC2 instances
 
 ### Lambda Function
 
