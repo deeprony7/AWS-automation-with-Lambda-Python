@@ -10,4 +10,6 @@ CloudWatch Event acts as the scheduler
 
 Cron expression: `0 23 ? * MON-FRI *`
 
-6:00pm EST (UTC-5) == 11:00pm (23:00) UTC
+6:00pm EST (UTC-5) == 11:00pm (23:00) UTC  
+
+Blog Article - https://docs.google.com/document/d/1R62_DxjVg4eo2hBYwwW2ixG3FD-m7-1BCcrwzQi0b58/edit?usp=sharing
