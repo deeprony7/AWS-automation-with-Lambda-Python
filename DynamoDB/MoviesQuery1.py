@@ -22,7 +22,7 @@ dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('Movies')
 
 year = 1970
-print(f"Movies from {year}")
+print(f"Movies from the {year}")
 
 response = table.query(
 	KeyConditionExpression=Key('year').eq(year)
