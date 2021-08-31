@@ -6,7 +6,7 @@ from boto3.dynamodb.conditions import Key
 
 
 class DecimalEncoder(json.JSONEncoder):
-    '''Helper class to convert a DynamoDB item to JSON'''
+    """Helper class to convert a DynamoDB item to JSON"""
 
     def default(self, o):
         if isinstance(o, decimal.Decimal):
@@ -14,9 +14,9 @@ class DecimalEncoder(json.JSONEncoder):
         return super(DecimalEncoder, self).default(o)
 
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource("dynamodb")
 
-table = dynamodb.Table('Movies')
+table = dynamodb.Table("Movies")
 
 print("Movies from 1992 - titles M-T, with genres and lead actor")
 
@@ -24,9 +24,8 @@ response = table.query(
     ProjectionExpression="#yr, title, info.genres, info.actors[0]",
     # Expression Attribute Names for Projection Expression only.
     ExpressionAttributeNames={"#yr": "year"},
-    KeyConditionExpression=Key('year').eq(
-        1992) & Key('title').between('M', 'T')
+    KeyConditionExpression=Key("year").eq(1992) & Key("title").between("M", "T"),
 )
 
-for i in response[u'Items']:
+for i in response[u"Items"]:
     print(json.dumps(i, cls=DecimalEncoder))

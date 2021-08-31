@@ -5,7 +5,7 @@ import boto3
 
 
 class DecimalEncoder(json.JSONEncoder):
-    '''Helper class to convert a DynamoDB item to JSON'''
+    """Helper class to convert a DynamoDB item to JSON"""
 
     def default(self, o):
         if isinstance(o, Decimal):
@@ -16,21 +16,18 @@ class DecimalEncoder(json.JSONEncoder):
         return super(DecimalEncoder, self).default(o)
 
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource("dynamodb")
 
-table = dynamodb.Table('Movies')
+table = dynamodb.Table("Movies")
 
 title = "The Big New Movie"
 year = 2015
 
 response = table.put_item(
     Item={
-        'year': year,
-        'title': title,
-        'info': {
-            'plot': "Nothing happens at all.",
-            'rating': Decimal(0)
-        }
+        "year": year,
+        "title": title,
+        "info": {"plot": "Nothing happens at all.", "rating": Decimal(0)},
     }
 )
 

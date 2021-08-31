@@ -6,7 +6,7 @@ import boto3
 # KEY_NAME = os.environ['KEY_NAME']
 # SUBNET_ID = os.environ['SUBNET_ID']
 
-ec2 = boto3.resource('ec2')
+ec2 = boto3.resource("ec2")
 
 
 def lambda_handler(event, context):
@@ -17,8 +17,7 @@ def lambda_handler(event, context):
         # KeyName=KEY_NAME,
         SubnetId="subnet-0cb7a572588a09009",
         MaxCount=1,
-        MinCount=1
+        MinCount=1,
     )
 
     print("New instance created:", instance[0].id)
-

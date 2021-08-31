@@ -6,7 +6,7 @@ from botocore.exceptions import ClientError
 
 
 class DecimalEncoder(json.JSONEncoder):
-    '''Helper class to convert a DynamoDB item to JSON'''
+    """Helper class to convert a DynamoDB item to JSON"""
 
     def default(self, o):
         if isinstance(o, decimal.Decimal):
@@ -17,9 +17,9 @@ class DecimalEncoder(json.JSONEncoder):
         return super(DecimalEncoder, self).default(o)
 
 
-dynamodb = boto3.resource('dynamodb')
+dynamodb = boto3.resource("dynamodb")
 
-table = dynamodb.Table('Movies')
+table = dynamodb.Table("Movies")
 
 title = "The Big New Movie"
 year = 2015
@@ -27,15 +27,10 @@ year = 2015
 print("Attempting a conditional delete...")
 
 try:
-    response = table.delete_item(
-        Key={
-            'year': year,
-            'title': title
-        }
-    )
+    response = table.delete_item(Key={"year": year, "title": title})
 except ClientError as e:
-    if e.response['Error']['Code'] == "ConditionalCheckFailedException":
-        print(e.response['Error']['Message'])
+    if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
+        print(e.response["Error"]["Message"])
     else:
         raise
 else:

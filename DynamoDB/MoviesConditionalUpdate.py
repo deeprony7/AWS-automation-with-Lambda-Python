@@ -5,31 +5,28 @@ from botocore.exceptions import ClientError
 
 def remove_actors(title, year, actor_count, dynamodb=None):
     if not dynamodb:
-        dynamodb = boto3.resource('dynamodb')
+        dynamodb = boto3.resource("dynamodb")
 
-    table = dynamodb.Table('Movies')
+    table = dynamodb.Table("Movies")
 
     try:
         response = table.update_item(
-            Key={
-                'year': year,
-                'title': title
-            },
+            Key={"year": year, "title": title},
             UpdateExpression="remove info.actors[0]",
             ConditionExpression="size(info.actors) >= :num",
-            ExpressionAttributeValues={':num': actor_count},
-            ReturnValues="UPDATED_NEW"
+            ExpressionAttributeValues={":num": actor_count},
+            ReturnValues="UPDATED_NEW",
         )
     except ClientError as e:
-        if e.response['Error']['Code'] == "ConditionalCheckFailedException":
-            print(e.response['Error']['Message'])
+        if e.response["Error"]["Code"] == "ConditionalCheckFailedException":
+            print(e.response["Error"]["Message"])
         else:
             raise
     else:
         return response
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print("Attempting conditional update (expecting failure)...")
     update_response = remove_actors("The Big New Movie", 2015, 3)
     if update_response:
